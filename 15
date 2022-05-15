@@ -1,0 +1,115 @@
+---
+# Welcome page
+mandatory: true 
+question: Housing South Australia Rent Calculator
+Subquestion: |
+   
+   The purpose of this application is to calculate your fortnightly rent payable    and to access additional services if required.
+
+
+   This application currently only applies for people who are receiving Commonwealth Assistance, and reside or are looking to reside with a Housing Choices SA property.
+
+
+   **Disclaimer**
+
+   This application does **not** present legal advice.
+
+   Please answer all following questions honestly.
+
+   This application does not guarantee you will receive a property with HSCA, nor funding or grants from Commonwealth Assistance. It will help you assess the fortnightly rent payable on HCSA properties and give you tips on the next steps.
+
+   *Housing Choices South Australia will make the final decision in regards to all rent payable.*
+
+   We advise you to have a support person while filling out the questions, or to contact Housing Choices South Austraila directly.
+
+   **If you are under 18, you must have a parent or caregiver present while filling out the questions.**
+
+   If you continue, you accept these terms. Explanation of rent calculator and its properties
+
+buttons:
+  - I'm Done: exit
+    url: https://www.housingchoices.org.au/residents/south-australia
+  - Continue to Calculator: continue
+---
+mandatory: true
+
+question: |
+ Address
+fields:
+  - What is your Name?: JenName
+  - What if you Date of Birth: JenBirthday
+    datatype: date
+  - What is your Address?: JenAaddress
+  - Number of people in Household?: JenNumber
+ 
+under: |
+ This infromation is for...
+
+---
+mandatory: true 
+
+question: Sources of **Fortnightly** Income
+fields:
+  - Gross Income: JenGrossIncome
+    datatype: currency
+  - Centrelink Allowance: JenCentrelinkAllowance
+    datatype: currency
+  - Commonwealth Assistance: JenCommonwealthAssistance
+    datatype: currency
+  - Other Sources of Income: JenAlternateIncome
+    datatype: currency
+  - Exempt Costs or Payments: JenExemptCosts
+    datatype: currency
+
+under: |
+ Example of exempt costs: Careers payments form Centrelink is not included in establishing rent. 
+ 
+ **Other Sources of Income** may include Aged Pension, Disability Support Pension
+
+---
+mandatory: true 
+
+question: Income Assessment
+fields:
+  - Family Tax Benefit: JenFTB
+    datatype: currency
+
+under: |
+
+ If your family receives a **Family Tax Benefit A and B payments**, 15% of it will be added with their final rent.
+ 
+ **Renewing Our Streets and Suburbs** is the Housing Choices Australia's tender for affordable hosing. 
+---
+mandatory: true
+
+question: |
+ Housing
+field: target_variable
+choices: 
+  - Renewing Our Streets and Suburbs
+  - Common Ground
+  
+under:  |
+   Renewing Our Streets and Suburbs, Housing Choices South Australia's tender for afforable housing, calculate rent based on 25% of a households income.
+ 
+   Commonground is another tender by Housing Choices South Australia, rent is based on 30% of the household income.
+
+---
+mandatory: true
+
+question: Market Rent
+fields:
+  - What is the Market Rent of the Property: JenPropertyMarketRent
+    datatype: currency
+subquestion:
+ If you are unsure and need help answering this question, press "Help"
+help: |
+ The following link will lead you to Housing Choices SA contact details, reach out to a staff member to help understand your properties market rent value. <https://www.housingchoices.org.au/contact-us-1>
+---
+mandatory: true 
+question: Calculated Rent
+buttons:
+  - I'm done: exit
+    url: https://www.housingchoices.org.au/residents/south-australia
+  - Return to Calculator: restart
+---
