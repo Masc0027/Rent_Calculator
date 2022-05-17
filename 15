@@ -31,8 +31,7 @@ buttons:
     url: https://www.housingchoices.org.au/residents/south-australia
   - Continue to Calculator: continue
 ---
-mandatory: true
-
+mandatory: True
 question: |
  Address
 fields:
@@ -46,10 +45,7 @@ under: |
  This infromation is for...
 #is it necessary to know the users relationship status?How do you set up code for everone's income?
 ---
-code
----
-mandatory: true 
-
+mandatory: True
 question: Sources of **Fortnightly** Income
 fields:
   - Gross Income: JenGrossIncome
@@ -66,11 +62,8 @@ fields:
 under: |
  Example of exempt costs: Careers payments form Centrelink is not included in establishing rent. 
  
- **Other Sources of Income** may include Aged Pension, Disability Support Pension or Clean Energy Pension
-
+ **Other Sources of Income** may include Aged Pension, Disability Support Pension
 ---
-mandatory: true 
-
 question: Income Assessment
 fields:
   - Family Tax Benefit: JenFTB
@@ -82,11 +75,9 @@ under: |
  
  **Renewing Our Streets and Suburbs** is the Housing Choices Australia's tender for affordable hosing. 
 ---
-mandatory: true
-
 question: |
- Housing
-field: target_variable
+  Housing
+field: HousingType
 choices: 
   - Renewing Our Streets and Suburbs: JenRenew
   - Common Ground: JenCommon
@@ -95,10 +86,8 @@ under:  |
    Renewing Our Streets and Suburbs, Housing Choices South Australia's tender for afforable housing, calculate rent based on 25% of a households income.
  
    Commonground is another tender by Housing Choices South Australia, rent is based on 30% of the household income.
-
 ---
 mandatory: true
-
 question: Market Rent
 fields:
   - What is the Market Rent of the Property: JenPropertyMarketRent
@@ -114,37 +103,19 @@ question: |
 yesno: JenCMR
 # CMR = Capped Market Rent. Case this section be implemented under the market rent section?
 ---
-Code: | 
-    a = JenGrossIncome
-    b = JenCentrelinkAllowance
-    c = JenCommonwealthAssistance
-    d = JenAlternateIncome
-    e = JenFTB
-    f = JenExemptCosts
-    
-      Total Rent = JenGrossIncome + JenCentrelinkAllowance + JenCommonwealthAssistance + JenAlternateIncome + JenFTB - JenExemptCosts
+code: | 
+  if HousingType == 'JenRenew':
+    TotalIncome = JenGrossIncome + JenCentrelinkAllowance + JenCommonwealthAssistance + JenAlternateIncome + JenFTB - JenExemptCosts
+    TotalRent = TotalIncome * 0.3
+  elif HousingType == 'JenCommon':
+    TotalIncome = JenGrossIncome + JenCentrelinkAllowance + JenCommonwealthAssistance + JenAlternateIncome + JenFTB - JenExemptCosts
+    TotalRent = TotalIncome * 0.25
 ---
 mandatory: true 
 question: Calculated Rent
 subquestion: |
-  <%
    
-    a = JenGrossIncome
-    b = JenCentrelinkAllowance
-    c = JenCommonwealthAssistance
-    d = JenAlternateIncome
-    e = JenFTB
-    f = JenExemptCosts
-    r = JenRenew
-    
-    if r:
-      answer = a + b + c + d + e - f
-    
-    else: 
-      answer = a + b + c + d + e - f
-    
-  %>
-  $ ${ answer }
+   Total Rent: ${ currency(TotalRent) }
 
 buttons:
   - I'm done: exit
